@@ -1,0 +1,20 @@
+{
+  "name": "starmango-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend for the StarMango application - extracted from SaaS boilerplate",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "husky && pnpm exec nx run webapp:graphql:generate-types"
+  },
+  "devDependencies": {
+    "@nx/js": "^18.1.2",
+    "husky": "^9.0.11",
+    "nx": "^18.1.2"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9"
+  }
+}
