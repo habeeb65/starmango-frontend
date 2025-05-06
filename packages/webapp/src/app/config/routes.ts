@@ -1,19 +1,18 @@
 /**
  * Application routes configuration
  */
-export const ROUTES = {
+export const RoutesConfig = {
   home: '/',
+  dashboard: '/dashboard',
   auth: {
-    index: '/auth',
+    index: '/auth/*',
     login: '/auth/login',
     signup: '/auth/signup',
+    passwordReset: '/auth/password-reset',
+    passwordChange: '/auth/password-change',
     confirmEmail: '/auth/confirm-email',
-    forgotPassword: '/auth/forgot-password',
-    resetPassword: '/auth/reset-password',
   },
-  app: {
-    index: '/app',
-    profile: '/app/profile',
-    settings: '/app/settings',
+  private: {
+    index: '/*',
   },
 };
