@@ -1,37 +1,47 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-
-import { ROUTES } from './config/routes';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useAuth } from '@sb/webapp-api-client';
+import { Layout } from '../shared/components/layout';
 import { AuthRoutesContainer } from './auth/authRoutesContainer.component';
 import { PrivateRoutes } from './auth/privateRoutes.component';
+import { Landing } from '../routes/landing';
+import { Login } from '../routes/auth/login';
+import { Signup } from '../routes/auth/signup';
+import { PasswordReset } from '../routes/auth/passwordReset';
+import { Dashboard } from '../routes/dashboard';
+import { RoutesConfig } from './config/routes';
 
-/**
- * Main App component that handles routing
- */
 export const App = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
-    <Routes>
-      {/* Auth routes (login, signup, password reset, etc.) */}
-      <Route path={ROUTES.auth.index} element={<AuthRoutesContainer />}>
-        <Route path={ROUTES.auth.login} element={<div>Login Component Placeholder</div>} />
-        <Route path={ROUTES.auth.signup} element={<div>Signup Component Placeholder</div>} />
-        <Route path={ROUTES.auth.confirmEmail} element={<div>Confirm Email Component Placeholder</div>} />
-        <Route path={ROUTES.auth.forgotPassword} element={<div>Forgot Password Component Placeholder</div>} />
-        <Route path={ROUTES.auth.resetPassword} element={<div>Reset Password Component Placeholder</div>} />
-      </Route>
+    <Layout>
+      <Routes>
+        {/* Public routes */}
+        <Route path={RoutesConfig.home} element={isLoggedIn ? <Navigate to={RoutesConfig.dashboard} /> : <Landing />} />
+        
+        {/* Auth routes */}
+        <Route path={RoutesConfig.auth.index} element={<AuthRoutesContainer />}>
+          <Route path={RoutesConfig.auth.login} element={<Login />} />
+          <Route path={RoutesConfig.auth.signup} element={<Signup />} />
+          <Route path={RoutesConfig.auth.passwordReset} element={<PasswordReset />} />
+        </Route>
+        
+        {/* Protected routes */}
+        <Route path={RoutesConfig.private.index} element={<PrivateRoutes />}>
+          <Route path={RoutesConfig.dashboard} element={<Dashboard />} />
+          <Route path="/projects" element={<div>Projects page (Coming soon)</div>} />
+          <Route path="/tasks" element={<div>Tasks page (Coming soon)</div>} />
+          <Route path="/calendar" element={<div>Calendar page (Coming soon)</div>} />
+          <Route path="/reports" element={<div>Reports page (Coming soon)</div>} />
+          <Route path="/team" element={<div>Team page (Coming soon)</div>} />
+          <Route path="/settings" element={<div>Settings page (Coming soon)</div>} />
+          <Route path="/profile" element={<div>Profile page (Coming soon)</div>} />
+        </Route>
 
-      {/* Private routes (protected, requires authentication) */}
-      <Route path={ROUTES.app.index} element={<PrivateRoutes />}>
-        <Route index element={<div>Dashboard Component Placeholder</div>} />
-        <Route path={ROUTES.app.profile} element={<div>Profile Component Placeholder</div>} />
-        <Route path={ROUTES.app.settings} element={<div>Settings Component Placeholder</div>} />
-      </Route>
-
-      {/* Landing page */}
-      <Route path={ROUTES.home} element={<div>Landing Page Component Placeholder</div>} />
-
-      {/* Handle 404 */}
-      <Route path="*" element={<Navigate to={ROUTES.home} replace />} />
-    </Routes>
+        {/* 404 route - must be at the end */}
+        <Route path="*" element={<Navigate to={RoutesConfig.home} replace />} />
+      </Routes>
+    </Layout>
   );
 };
