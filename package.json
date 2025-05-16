@@ -8,6 +8,6 @@
     "preview": "npx pnpm --filter webapp run preview"
   },
   "devDependencies": {
-    "pnpm": "latest"
+    "pnpm": "^10.11.0"
   }
 }
