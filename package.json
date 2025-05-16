@@ -1,19 +1,13 @@
 {
-  "name": "starmango-frontend",
-  "version": "1.0.0",
+  "name": "saas-boilerplate-frontend",
   "private": true,
-  "description": "Frontend for the StarMango application - extracted from SaaS boilerplate",
-  "author": "",
-  "license": "MIT",
   "scripts": {
-    "postinstall": "pnpm install --force && pnpm exec nx run webapp:graphql:generate-types"
+    "postinstall": "npm install pnpm --save-dev && npx pnpm install --force && npx pnpm exec nx run webapp:graphql:generate-types",
+    "dev": "npx pnpm --filter webapp run dev",
+    "build": "npx pnpm --filter webapp run build",
+    "preview": "npx pnpm --filter webapp run preview"
   },
   "devDependencies": {
-    "@nx/js": "^18.1.2",
-    "nx": "^18.1.2"
-  },
-  "engines": {
-    "node": ">=18",
-    "pnpm": ">=9"
+    "pnpm": "latest"
   }
 }
