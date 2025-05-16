@@ -6,7 +6,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "postinstall": "pnpm exec nx run webapp:graphql:generate-types"
+    "postinstall": "pnpm install --force && pnpm exec nx run webapp:graphql:generate-types"
   },
   "devDependencies": {
     "@nx/js": "^18.1.2",
